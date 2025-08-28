@@ -23,6 +23,9 @@ public class MemberController {
 		return "memberJoin";
 	}
 	
+	
+	
+	
 	@RequestMapping(value = "/memberJoinOk")
 	public String memberJoinOk(@ModelAttribute("memberDto") MemberDto memberDto, Model model, BindingResult result) {
 		
@@ -41,10 +44,12 @@ public class MemberController {
 			model.addAttribute("signupError", "회원 가입에 실패하였습니다.");
 			model.addAttribute("errorMsg", errorMsg);
 			
+			model.addAttribute("memberDto",memberDto); // 
+			
 			return "memberJoin";
 		}
 		
-		
+		model.addAttribute("memberDto",memberDto);  // 통과했으면 에러 없다는것 -> memberDto에 담아 넘겨준다
 		return "memberJoinOk";
 	}
 
