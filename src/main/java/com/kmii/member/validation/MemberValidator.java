@@ -1,6 +1,8 @@
 package com.kmii.member.validation;
 
 import org.springframework.validation.Errors;
+
+
 import com.kmii.member.dto.MemberDto;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,7 +24,8 @@ public class MemberValidator implements Validator {
 		String name = memberDto.getName();
 		String email = memberDto.getEmail();
 		String confirmPassword = memberDto.getConfirmPassword();
-		Integer age = memberDto.getAge();
+		int age = memberDto.getAge();
+		
 		
 		//공란인지 확인
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "id.empty","아이디는 필수 입력사항입니다.");
@@ -47,7 +50,7 @@ public class MemberValidator implements Validator {
 		}
 		
 		//18세 이상만 가입 가능하게 확인
-		if(age == null || age<18){
+		if(age<18){
 		errors.rejectValue("age", "age.limit","나이가 18세 이상만 가입 가능합니다.");
 		}
 		

@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
+
+
 public class MemberDto {
 	
 	private String id; //회원 아이디
