@@ -1,6 +1,7 @@
 package com.kmii.member.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -16,32 +17,35 @@ import com.kmii.member.validation.MemberValidator;
 @Controller
 public class MemberController {
 	
-	@RequestMapping(value="/memberJoin")
+	@RequestMapping(value = "/memberJoin")
 	public String memberJoin() {
+		
 		return "memberJoin";
 	}
-	@RequestMapping(value="/memberJoinOk")
-	public String memberJoinOk(@ModelAttribute("memberDto") Model model, MemberDto memberDto, BindingResult result) {
+	
+	@RequestMapping(value = "/memberJoinOk")
+	public String memberJoinOk(@ModelAttribute("memberDto") MemberDto memberDto, Model model, BindingResult result) {
 		
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(memberDto, result);
 		
-		
-		if(result.hasErrors()) {  //에러가 있는지 없는지 확인
-			List<ObjectError> allErrors = result.getAllErrors();
+		if(result.hasErrors()) { //에러가 있는지 확인(유효성 체크)
+			List<ObjectError> allErrors = result.getAllErrors(); //모든 에러 포함
 			List<String> errorMsg = new ArrayList<String>();
 			
-			for(ObjectError error : allErrors )
-				errorMsg.(error.getDefaultMessage()); // 에러메세지
+			for(ObjectError error :allErrors) {
+				 //에러메시지
+				errorMsg.add(error.getDefaultMessage());
+			}
 			
+			model.addAttribute("signupError", "회원 가입에 실패하였습니다.");
+			model.addAttribute("errorMsg", errorMsg);
+			
+			return "memberJoin";
 		}
 		
-		model.addAttribute("signupError","회원 가입에 실패하였습니다.");
-		model.addAttribute("errorMsg","회원 가입에 실패하였습니다.");
 		
-		
-		return "memberJoin";
+		return "memberJoinOk";
 	}
 
-		return "memberJoinOk";
 }

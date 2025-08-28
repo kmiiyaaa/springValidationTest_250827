@@ -24,7 +24,7 @@ public class MemberValidator implements Validator {
 		String name = memberDto.getName();
 		String email = memberDto.getEmail();
 		String confirmPassword = memberDto.getConfirmPassword();
-		int age = memberDto.getAge();
+		Integer age = memberDto.getAge();
 		
 		
 		//공란인지 확인
@@ -50,7 +50,7 @@ public class MemberValidator implements Validator {
 		}
 		
 		//18세 이상만 가입 가능하게 확인
-		if(age<18){
+		if(age==null || age<18){
 		errors.rejectValue("age", "age.limit","나이가 18세 이상만 가입 가능합니다.");
 		}
 		
